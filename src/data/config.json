@@ -1,0 +1,13 @@
+{
+  "storeName": "Sky Apps Store",
+  "storeTagline": "Le catalogue officiel de mes applications, extensions et utilitaires.",
+  "authorName": "Raphael (Sky Apps)",
+  "githubUserUrl": "https://github.com",
+  "contactEmail": "contact@skyapps.dev",
+  "announcement": {
+    "enabled": true,
+    "text": "✨ Bienvenue sur Sky Apps Store ! Toutes les applications sont 100% gratuites, sans pub et open-source.",
+    "link": "#apps",
+    "linkText": "Explorer les applis"
+  }
+}

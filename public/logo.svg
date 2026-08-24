@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="appleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00C0FF" />
+      <stop offset="50%" stop-color="#0071E3" />
+      <stop offset="100%" stop-color="#4B0082" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#0071e3" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#appleGrad)" filter="url(#glow)"/>
+  <path d="M256 120 L275 220 L370 230 L290 290 L320 385 L256 330 L192 385 L222 290 L142 230 L237 220 Z" fill="#ffffff" opacity="0.95" />
+  <circle cx="256" cy="256" r="50" fill="url(#appleGrad)" opacity="0.4"/>
+  <path d="M190 310 Q 256 360 322 310" stroke="#ffffff" stroke-width="18" stroke-linecap="round" fill="none" opacity="0.9"/>
+  <circle cx="256" cy="180" r="16" fill="#ffffff"/>
+</svg>
