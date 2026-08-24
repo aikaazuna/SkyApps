@@ -1,120 +1,100 @@
-# 📚 Guide Complet : Héberger ses APK, .EXE et Extensions sur GitHub
+# 📚 Guide Complet : Hébergement des Applications & Images
 
-Ce guide vous explique pas-à-pas comment stocker gratuitement vos fichiers d'applications (`.apk`, `.exe`, `.zip`) sur GitHub Releases et les distribuer sur votre **Sky Apps Store**.
-
----
-
-## 🌟 Pourquoi utiliser GitHub Releases ?
-
-- ✅ **100% Gratuit et sans limite globale d'espace.**
-- ✅ **Fichiers volumineux acceptés :** jusqu'à **2 Go par fichier**.
-- ✅ **CDN mondial ultra-rapide :** téléchargements rapides et stables pour tous vos utilisateurs.
-- ✅ **Gestion des versions claire :** vos utilisateurs savent toujours quelle version ils téléchargent.
+Ce guide vous explique les deux méthodes simples pour ajouter vos images et distribuer vos applications (`.apk`, `.exe`, `.zip`) sur votre **Sky Apps Store**.
 
 ---
 
-## Étape 1 : Créer une Release sur GitHub
+## 🚀 Méthode 1 (Recommandée) : Directement sur votre site / repo
 
-1. Rendez-vous sur le dépôt GitHub de votre application (ex: `https://github.com/votre-compte/mon-application`).
-2. Dans la colonne de droite, cliquez sur **Releases** (ou allez sur `https://github.com/votre-compte/mon-application/releases`).
-3. Cliquez sur le bouton vert **"Draft a new release"** (ou "Create a new release").
-4. **Remplissez les champs :**
-   - **Choose a tag :** tapez votre numéro de version, par exemple `v1.0.0` (puis cliquez sur *Create new tag*).
-   - **Release title :** exemple `Version 1.0.0 — Lancement officiel`.
-   - **Describe this release :** décrivez les nouveautés ou laissez vide.
-5. **Attachez vos fichiers :**
-   - Dans la zone **"Attach binaries by dropping them here or selecting them"**, glissez-déposez vos fichiers :
-     - Votre fichier Android : `MonApp-v1.0.0.apk`
-     - Votre installateur Windows : `MonApp-Setup-1.0.0.exe`
-     - Votre version portable : `MonApp-Portable-1.0.0.zip`
-6. Cliquez sur **"Publish release"**.
+Vous pouvez déposer vos fichiers d'applications et vos images directement dans le dossier `public/` de ce projet.
 
----
-
-## Étape 2 : Récupérer le lien direct de téléchargement
-
-Une fois la Release publiée :
-1. Faites un **clic droit** sur le fichier dans la Release (ex: `MonApp-v1.0.0.apk`) et sélectionnez **"Copier l'adresse du lien"**.
-2. Le lien aura cette structure :
-   ```
-   https://github.com/votre-compte/mon-application/releases/download/v1.0.0/MonApp-v1.0.0.apk
-   ```
-   *(Ce lien déclenche directement le téléchargement du fichier dès que l'utilisateur clique dessus).*
-
----
-
-## Étape 3 : Ajouter l'application sur le Store
-
-### Méthode Visuelle (Recommandée) :
-1. Lancez votre site ou allez sur sa version en ligne Vercel.
-2. Cliquez sur le bouton **"+ Ajouter une appli"** dans la barre de navigation.
-3. Saisissez le nom, le slogan, la catégorie et collez votre lien GitHub Release dans la partie **Téléchargements**.
-4. Cliquez sur **"Générer le code JSON"** puis **"Copier le JSON"**.
-5. Ouvrez le fichier `src/data/apps.json` de ce projet et collez le bloc au début ou à la fin de la liste.
-
-### Exemple de structure dans `src/data/apps.json` :
+### 🖼️ Pour les images (Icônes & Captures) :
+Placez vos images dans le dossier `public/apps/<nom-app>/` :
+```
+public/
+  apps/
+    skyclip/
+      icon.png
+      banner.jpg
+      screenshot-1.png
+      screenshot-2.png
+```
+Dans `src/data/apps.json`, indiquez simplement le chemin relatif :
 ```json
-[
+"icon": "/apps/skyclip/icon.png",
+"banner": "/apps/skyclip/banner.jpg",
+"screenshots": [
+  "/apps/skyclip/screenshot-1.png",
+  "/apps/skyclip/screenshot-2.png"
+]
+```
+✅ **Avantages :** 
+- Les images chargent instantanément en local et sur Vercel.
+- Vous les poussez simplement sur votre GitHub (`git add public/apps/ && git push`).
+
+---
+
+### 📦 Pour les fichiers d'applications (.APK, .EXE) :
+Placez vos fichiers dans le dossier `public/downloads/` :
+```
+public/
+  downloads/
+    SkyClip-Setup.exe
+    SkyStream-v1.8.apk
+```
+Dans `src/data/apps.json` :
+```json
+"downloads": [
   {
-    "id": "mon-application",
-    "name": "Mon Application",
-    "tagline": "Une description courte et accrocheuse",
-    "description": "Description détaillée de toutes les fonctionnalités...",
-    "icon": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=256&h=256&fit=crop&q=80",
-    "category": "Productivité",
-    "platforms": ["apk", "exe"],
-    "featured": true,
-    "badge": "Nouveau",
-    "rating": 4.9,
-    "author": {
-      "name": "Votre Nom",
-      "url": "https://github.com/votre-compte"
-    },
-    "version": "1.0.0",
-    "size": "24.5 Mo",
-    "releaseDate": "2024-08-24",
-    "lastUpdated": "2024-08-24",
-    "screenshots": [
-      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1000&h=600&fit=crop&q=80"
-    ],
-    "features": [
-      "Interface moderne et intuitive",
-      "Fonctionne sans connexion Internet",
-      "Sans publicité"
-    ],
-    "downloads": [
-      {
-        "id": "mon-app-apk",
-        "label": "Télécharger APK (Android)",
-        "platform": "apk",
-        "url": "https://github.com/votre-compte/mon-app/releases/download/v1.0.0/MonApp.apk",
-        "size": "24.5 Mo",
-        "version": "1.0.0",
-        "primary": true
-      },
-      {
-        "id": "mon-app-exe",
-        "label": "Installateur Windows (.exe)",
-        "platform": "exe",
-        "url": "https://github.com/votre-compte/mon-app/releases/download/v1.0.0/MonApp-Setup.exe",
-        "size": "38.2 Mo",
-        "version": "1.0.0"
-      }
-    ],
-    "githubRepo": "https://github.com/votre-compte/mon-app"
+    "id": "skyclip-exe",
+    "label": "Télécharger l'Installateur Windows",
+    "platform": "exe",
+    "url": "/downloads/SkyClip-Setup.exe",
+    "size": "48 Mo",
+    "primary": true
   }
 ]
 ```
+✅ **Résultat :** Quand l'utilisateur clique sur **« OBTENIR »**, le fichier se télécharge directement depuis votre propre site (ex: `https://votre-site.vercel.app/downloads/SkyClip-Setup.exe`) sans aucune redirection externe !
 
 ---
 
-## Étape 4 : Mettre en ligne en 1 commande
+## 🌐 Méthode 2 : Via GitHub Releases (Pour les gros fichiers > 100 Mo)
 
-Dans votre terminal :
-```bash
-git add .
-git commit -m "Ajout de la nouvelle application MonApp"
-git push
+Si vous avez des fichiers très volumineux (jusqu'à 2 Go), vous pouvez les déposer sur **GitHub Releases** :
+
+1. Sur votre dépôt GitHub, allez dans **Releases > Create a new release**.
+2. Renseignez un tag (ex: `v1.0.0`) et glissez votre fichier `.apk` ou `.exe`.
+3. Cliquez sur **Publish release**.
+4. Récupérez le lien direct du fichier :
+   ```
+   https://github.com/votre-compte/votre-repo/releases/download/v1.0.0/mon-app.apk
+   ```
+5. Collez ce lien dans `url` dans votre `src/data/apps.json`.
+6. Le bouton **« OBTENIR »** de votre site déclenchera automatiquement le téléchargement direct du fichier en arrière-plan sans ouvrir la page GitHub.
+
+---
+
+## 🖼️ Prendre des images depuis un dépôt GitHub distant (GitHub Raw)
+
+Si vos images sont hébergées sur un dépôt GitHub, vous pouvez utiliser l'URL directe `raw.githubusercontent.com` :
 ```
+https://raw.githubusercontent.com/<pseudo>/<repo>/main/images/icon.png
+```
+*(Remplacez `<pseudo>`, `<repo>` et le chemin vers votre image).*
 
-Vercel recompile et déploie le site automatiquement en moins de 20 secondes ! 🚀
+---
+
+## ⚡ Résumé pour ajouter une appli en 30 secondes :
+
+1. Déposez l'icône dans `public/apps/mon-app/icon.png` et l'APK dans `public/downloads/mon-app.apk`.
+2. Ouvrez le générateur sur le site (**`Ctrl + Maj + A`**).
+3. Remplissez les champs et cliquez sur **« Copier le JSON »**.
+4. Collez dans `src/data/apps.json`.
+5. Poussez sur GitHub :
+   ```bash
+   git add .
+   git commit -m "Ajout de Mon App"
+   git push
+   ```
+Vercel met à jour le site automatiquement en 15 secondes ! 🚀
