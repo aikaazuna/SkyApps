@@ -110,16 +110,18 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Action Controls */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Add App Button (Modal Trigger) */}
-          <button
-            onClick={onOpenSubmitModal}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-[#0071e3] to-[#5856d6] hover:from-[#0077ed] hover:to-[#6864e8] shadow-sm hover:shadow-apple-glow transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
-            title="Générer les informations pour ajouter une nouvelle application"
-          >
-            <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
-            <span className="hidden md:inline">Ajouter une appli</span>
-            <span className="md:hidden">Ajouter</span>
-          </button>
+          {/* Add App Button (Only if enabled in config, otherwise hidden by default) */}
+          {config.showAddAppButton && (
+            <button
+              onClick={onOpenSubmitModal}
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-[#0071e3] to-[#5856d6] hover:from-[#0077ed] hover:to-[#6864e8] shadow-sm hover:shadow-apple-glow transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+              title="Générer les informations pour ajouter une nouvelle application"
+            >
+              <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+              <span className="hidden md:inline">Ajouter une appli</span>
+              <span className="md:hidden">Ajouter</span>
+            </button>
+          )}
 
           {/* Theme Toggle Button */}
           <button

@@ -4,6 +4,7 @@
   "authorName": "Raphael (Sky Apps)",
   "githubUserUrl": "https://github.com",
   "contactEmail": "contact@skyapps.dev",
+  "showAddAppButton": false,
   "announcement": {
     "enabled": true,
     "text": "✨ Bienvenue sur Sky Apps Store ! Toutes les applications sont 100% gratuites, sans pub et open-source.",

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Download, Star, Smartphone, Monitor, Puzzle, Sparkles } from 'lucide-react';
 import { AppItem, PlatformType } from '../types/app';
-import { triggerDownloadConfetti } from '../utils/confetti';
+import { triggerDirectDownload } from '../utils/download';
 
 interface AppListRowProps {
   app: AppItem;
@@ -84,19 +84,17 @@ export const AppListRow: React.FC<AppListRowProps> = ({ app, rank, onSelectApp }
       {/* Action Button */}
       <div className="ml-3 shrink-0">
         {primaryDownload && (
-          <a
-            href={primaryDownload.url}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
             onClick={(e) => {
               e.stopPropagation();
-              triggerDownloadConfetti();
+              triggerDirectDownload(primaryDownload.url, `${app.name}-${primaryDownload.version || app.version}.${primaryDownload.platform === 'apk' ? 'apk' : 'exe'}`);
             }}
-            className="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-[#0071e3] bg-black/5 hover:bg-[#0071e3] hover:text-white dark:bg-white/10 dark:text-white dark:hover:bg-[#0071e3] transition-all duration-200 flex items-center gap-1"
+            className="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-[#0071e3] bg-black/5 hover:bg-[#0071e3] hover:text-white dark:bg-white/10 dark:text-white dark:hover:bg-[#0071e3] transition-all duration-200 flex items-center gap-1 cursor-pointer"
           >
             <Download className="w-3 h-3 stroke-[2.5]" />
             <span>OBTENIR</span>
-          </a>
+          </button>
         )}
       </div>
     </div>

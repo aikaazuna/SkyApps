@@ -65,6 +65,7 @@ export interface StoreConfig {
   authorName: string;
   githubUserUrl?: string;
   contactEmail?: string;
+  showAddAppButton?: boolean;
   announcement?: {
     enabled: boolean;
     text: string;

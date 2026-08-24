@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Download, Star, ExternalLink, Sparkles, Smartphone, Monitor, Puzzle } from 'lucide-react';
 import { AppItem, PlatformType } from '../types/app';
-import { triggerDownloadConfetti } from '../utils/confetti';
+import { triggerDirectDownload } from '../utils/download';
 
 interface HeroSpotlightProps {
   featuredApps: AppItem[];
@@ -127,19 +127,17 @@ export const HeroSpotlight: React.FC<HeroSpotlightProps> = ({
           {/* CTAs */}
           <div className="flex items-center gap-3 flex-wrap">
             {primaryDownload && (
-              <a
-                href={primaryDownload.url}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  triggerDownloadConfetti();
+                  triggerDirectDownload(primaryDownload.url, `${currentApp.name}-${primaryDownload.version || currentApp.version}.${primaryDownload.platform === 'apk' ? 'apk' : 'exe'}`);
                 }}
-                className="flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm text-white bg-[#0071e3] hover:bg-[#0077ed] shadow-lg hover:shadow-apple-glow transform hover:scale-[1.03] active:scale-[0.97] transition-all duration-200"
+                className="flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm text-white bg-[#0071e3] hover:bg-[#0077ed] shadow-lg hover:shadow-apple-glow transform hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 cursor-pointer"
               >
                 <Download className="w-4 h-4 stroke-[2.5]" />
                 <span>OBTENIR ({primaryDownload.size || currentApp.size})</span>
-              </a>
+              </button>
             )}
 
             <button

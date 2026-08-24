@@ -1,7 +1,7 @@
 import React from 'react';
 import { Download, Star, Smartphone, Monitor, Puzzle, Sparkles, HelpCircle } from 'lucide-react';
 import { AppItem, PlatformType } from '../types/app';
-import { triggerDownloadConfetti } from '../utils/confetti';
+import { triggerDirectDownload } from '../utils/download';
 
 interface AppCardProps {
   app: AppItem;
@@ -123,19 +123,17 @@ export const AppCard: React.FC<AppCardProps> = ({ app, onSelectApp, onOpenGuide 
           )}
 
           {primaryDownload && (
-            <a
-              href={primaryDownload.url}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
               onClick={(e) => {
                 e.stopPropagation();
-                triggerDownloadConfetti();
+                triggerDirectDownload(primaryDownload.url, `${app.name}-${primaryDownload.version || app.version}.${primaryDownload.platform === 'apk' ? 'apk' : 'exe'}`);
               }}
-              className="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-[#0071e3] bg-[#0071e3]/10 hover:bg-[#0071e3] hover:text-white dark:bg-white/10 dark:text-white dark:hover:bg-[#0071e3] transition-all duration-200 transform hover:scale-105 active:scale-95 flex items-center gap-1.5"
+              className="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-[#0071e3] bg-[#0071e3]/10 hover:bg-[#0071e3] hover:text-white dark:bg-white/10 dark:text-white dark:hover:bg-[#0071e3] transition-all duration-200 transform hover:scale-105 active:scale-95 flex items-center gap-1.5 cursor-pointer"
             >
               <Download className="w-3 h-3 stroke-[2.5]" />
               <span>OBTENIR</span>
-            </a>
+            </button>
           )}
         </div>
       </div>

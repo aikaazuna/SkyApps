@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { GithubIcon } from './icons/GithubIcon';
 import { AppItem, PlatformType } from '../types/app';
-import { triggerDownloadConfetti } from '../utils/confetti';
+import { triggerDirectDownload } from '../utils/download';
 
 interface AppDetailModalProps {
   app: AppItem | null;
@@ -164,21 +164,19 @@ export const AppDetailModal: React.FC<AppDetailModalProps> = ({
             {/* Primary Download with dropdown option */}
             <div className="relative inline-flex rounded-full shadow-md">
               {primaryDownload && (
-                <a
-                  href={primaryDownload.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => triggerDownloadConfetti()}
-                  className="flex items-center gap-2 px-6 py-2.5 rounded-l-full font-bold text-sm text-white bg-[#0071e3] hover:bg-[#0077ed] transition-all"
+                <button
+                  type="button"
+                  onClick={() => triggerDirectDownload(primaryDownload.url, `${app.name}-${primaryDownload.version || app.version}.${primaryDownload.platform === 'apk' ? 'apk' : 'exe'}`)}
+                  className="flex items-center gap-2 px-6 py-2.5 rounded-l-full font-bold text-sm text-white bg-[#0071e3] hover:bg-[#0077ed] transition-all cursor-pointer"
                 >
                   <Download className="w-4 h-4 stroke-[2.5]" />
                   <span>{primaryDownload.label}</span>
-                </a>
+                </button>
               )}
               {app.downloads.length > 1 ? (
                 <button
                   onClick={() => setShowDownloadsDropdown(!showDownloadsDropdown)}
-                  className="px-3 py-2.5 rounded-r-full text-white bg-[#0060c2] hover:bg-[#0051a8] border-l border-white/20 transition-colors"
+                  className="px-3 py-2.5 rounded-r-full text-white bg-[#0060c2] hover:bg-[#0051a8] border-l border-white/20 transition-colors cursor-pointer"
                   title="Autres versions et miroirs"
                 >
                   <ChevronDown className={`w-4 h-4 transition-transform ${showDownloadsDropdown ? 'rotate-180' : ''}`} />
@@ -191,19 +189,17 @@ export const AppDetailModal: React.FC<AppDetailModalProps> = ({
               {showDownloadsDropdown && app.downloads.length > 1 && (
                 <div className="absolute top-full left-0 mt-2 w-72 bg-white dark:bg-[#2c2c2e] rounded-2xl shadow-2xl border border-black/10 dark:border-white/15 p-2 z-30 animate-fade-in">
                   <div className="text-[11px] font-bold text-gray-400 px-3 py-1 uppercase tracking-wider">
-                    Options de téléchargement
+                    Options de téléchargement direct
                   </div>
                   {app.downloads.map(d => (
-                    <a
+                    <button
                       key={d.id}
-                      href={d.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      type="button"
                       onClick={() => {
                         setShowDownloadsDropdown(false);
-                        triggerDownloadConfetti();
+                        triggerDirectDownload(d.url, `${app.name}-${d.version || app.version}.${d.platform === 'apk' ? 'apk' : 'exe'}`);
                       }}
-                      className="flex items-center justify-between p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-xs"
+                      className="w-full text-left flex items-center justify-between p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-xs cursor-pointer"
                     >
                       <div className="flex flex-col">
                         <span className="font-semibold text-gray-900 dark:text-white">{d.label}</span>
@@ -212,7 +208,7 @@ export const AppDetailModal: React.FC<AppDetailModalProps> = ({
                         </span>
                       </div>
                       <Download className="w-3.5 h-3.5 text-[#0071e3]" />
-                    </a>
+                    </button>
                   ))}
                 </div>
               )}

@@ -47,7 +47,7 @@ export function App() {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
   };
 
-  // URL deep link support (e.g. ?app=sky-clip-pro)
+  // URL deep link support (e.g. ?app=sky-clip-pro or ?admin=1)
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const appId = params.get('app');
@@ -57,7 +57,20 @@ export function App() {
         setSelectedApp(found);
       }
     }
-  }, [apps, setSelectedApp]);
+    if (params.get('admin') === '1' || window.location.hash === '#admin') {
+      setIsSubmitModalOpen(true);
+    }
+
+    // Keyboard shortcut (Ctrl + Shift + A or Cmd + Shift + A) to open generator
+    const handleAdminKey = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        setIsSubmitModalOpen(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleAdminKey);
+    return () => window.removeEventListener('keydown', handleAdminKey);
+  }, [apps, setSelectedApp, setIsSubmitModalOpen]);
 
   const handleOpenGuide = (app: AppItem, platform: PlatformType) => {
     setInstallGuideApp({ app, platform });
@@ -66,7 +79,25 @@ export function App() {
   const isFiltering = searchQuery.trim() !== '' || selectedPlatform !== 'all' || selectedCategory !== 'all';
 
   return (
-    <div className="min-h-screen flex flex-col selection:bg-[#0071e3] selection:text-white transition-colors duration-200">
+    <div className="relative min-h-screen flex flex-col selection:bg-[#0071e3] selection:text-white transition-colors duration-200 overflow-x-hidden">
+      {/* Apple Ambient Dynamic Aurora / Glow Background */}
+      <div className="apple-bg-aurora">
+        {/* Subtle grid pattern overlay */}
+        <div className="absolute inset-0 apple-bg-grid opacity-60" />
+        
+        {/* Top-center luminous blue/purple spotlight */}
+        <div className="absolute -top-[180px] left-1/2 -translate-x-1/2 w-[700px] h-[550px] bg-gradient-to-b from-[#0071e3]/20 via-[#5856d6]/15 to-transparent rounded-full blur-[120px] pointer-events-none" />
+        
+        {/* Left ambient glow orb */}
+        <div className="absolute top-[25%] -left-[200px] w-[500px] h-[500px] bg-gradient-to-tr from-[#00c0ff]/10 via-[#0071e3]/10 to-transparent rounded-full blur-[140px] pointer-events-none" />
+        
+        {/* Right ambient glow orb */}
+        <div className="absolute top-[45%] -right-[200px] w-[550px] h-[550px] bg-gradient-to-bl from-[#af52de]/15 via-[#5856d6]/10 to-transparent rounded-full blur-[140px] pointer-events-none" />
+        
+        {/* Bottom ambient glow orb */}
+        <div className="absolute bottom-[10%] left-1/3 w-[600px] h-[400px] bg-gradient-to-t from-[#0071e3]/10 to-transparent rounded-full blur-[130px] pointer-events-none" />
+      </div>
+
       {/* Apple blurred Glass Navbar */}
       <Navbar
         config={config}
