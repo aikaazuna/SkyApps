@@ -15,9 +15,9 @@ export const Footer: React.FC<FooterProps> = ({ config, onOpenSubmitModal }) => 
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-black/5 dark:border-white/5">
           <div className="space-y-2 max-w-md">
             <div className="flex items-center gap-2.5">
-              <img src="/logo.svg" alt="Sky Apps" className="w-6 h-6 rounded-lg" />
-              <span className="font-bold text-sm text-gray-900 dark:text-white tracking-tight">
-                {config.storeName}
+              <img src="/logo.png" alt="Sky Apps" className="h-6 w-auto object-contain dark:invert transition-all duration-300" />
+              <span className="font-bold text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                Store
               </span>
             </div>
             <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">

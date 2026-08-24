@@ -58,20 +58,19 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         {/* Brand Logo & Name */}
-        <div className="flex items-center gap-3 cursor-pointer select-none" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          <div className="relative w-10 h-10 rounded-2xl overflow-hidden shadow-apple-card flex items-center justify-center bg-gradient-to-tr from-[#0071e3] to-[#5856d6] p-0.5 group">
+        <div 
+          className="flex items-center gap-3 cursor-pointer select-none group" 
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          title="Accueil Sky Apps Store"
+        >
+          <div className="flex items-center gap-2.5">
             <img 
-              src="/logo.svg" 
+              src="/logo.png" 
               alt="Sky Apps Logo" 
-              className="w-full h-full object-cover rounded-[14px] transform group-hover:scale-105 transition-transform duration-300" 
+              className="h-8 sm:h-9 w-auto object-contain transition-all duration-300 dark:invert group-hover:scale-105" 
             />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-lg font-bold tracking-tight bg-gradient-to-r from-[#1d1d1f] to-[#424245] dark:from-white dark:to-[#86868b] bg-clip-text text-transparent">
-              {config.storeName}
-            </span>
-            <span className="text-[11px] text-gray-500 dark:text-gray-400 font-medium tracking-wide">
-              App Store & Catalog
+            <span className="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-[#0071e3]/10 text-[#0071e3] dark:bg-white/10 dark:text-gray-300 border border-[#0071e3]/20 dark:border-white/10">
+              Store
             </span>
           </div>
         </div>
