@@ -1,14 +1,13 @@
 import React from 'react';
 import { StoreConfig } from '../types/app';
-import { Heart, Shield, Sparkles } from 'lucide-react';
+import { Heart, Shield } from 'lucide-react';
 import { GithubIcon } from './icons/GithubIcon';
 
 interface FooterProps {
   config: StoreConfig;
-  onOpenSubmitModal: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ config, onOpenSubmitModal }) => {
+export const Footer: React.FC<FooterProps> = ({ config }) => {
   return (
     <footer className="w-full mt-20 border-t border-black/5 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02] text-xs text-gray-500 dark:text-gray-400 py-12 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
@@ -26,15 +25,6 @@ export const Footer: React.FC<FooterProps> = ({ config, onOpenSubmitModal }) => 
           </div>
 
           <div className="flex items-center gap-4 flex-wrap">
-            <button
-              onClick={onOpenSubmitModal}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors text-[11px]"
-              title="Ajouter une application (Raccourci: Ctrl + Maj + A)"
-            >
-              <Sparkles className="w-3 h-3 text-[#0071e3]" />
-              <span>Ajouter une application <span className="text-[10px] opacity-60 ml-1 font-mono">(Ctrl+Shift+A)</span></span>
-            </button>
-
             {config.githubUserUrl && (
               <a
                 href={config.githubUserUrl}

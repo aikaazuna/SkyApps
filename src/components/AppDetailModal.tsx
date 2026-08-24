@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  X, Download, Star, ExternalLink, Share2, 
+  X, Download, ExternalLink, Share2, 
   Check, Copy, HelpCircle, ShieldCheck, ChevronDown, 
   Sparkles, Smartphone, Monitor, Puzzle, 
   CheckCircle2, ChevronLeft, ChevronRight 
@@ -182,13 +182,15 @@ export const AppDetailModal: React.FC<AppDetailModalProps> = ({
                       triggerDirectDownload(primaryDownload.url, filename);
                     }
                   }}
-                  className="flex items-center gap-2 px-6 py-2.5 rounded-l-full font-bold text-sm text-white bg-[#0071e3] hover:bg-[#0077ed] transition-all cursor-pointer"
+                  className={`flex items-center gap-2 px-6 py-2.5 font-bold text-sm text-white bg-[#0071e3] hover:bg-[#0077ed] transition-all cursor-pointer ${
+                    app.downloads.length > 1 ? 'rounded-l-full' : 'rounded-full'
+                  }`}
                 >
                   <Download className="w-4 h-4 stroke-[2.5]" />
                   <span>{primaryDownload.label}</span>
                 </button>
               )}
-              {app.downloads.length > 1 ? (
+              {app.downloads.length > 1 && (
                 <button
                   onClick={() => setShowDownloadsDropdown(!showDownloadsDropdown)}
                   className="px-3 py-2.5 rounded-r-full text-white bg-[#0060c2] hover:bg-[#0051a8] border-l border-white/20 transition-colors cursor-pointer"
@@ -196,9 +198,7 @@ export const AppDetailModal: React.FC<AppDetailModalProps> = ({
                 >
                   <ChevronDown className={`w-4 h-4 transition-transform ${showDownloadsDropdown ? 'rotate-180' : ''}`} />
                 </button>
-              ) : primaryDownload ? (
-                <div className="rounded-r-full bg-[#0071e3] w-2" />
-              ) : null}
+              )}
 
               {/* Multiple Downloads Dropdown Menu */}
               {showDownloadsDropdown && app.downloads.length > 1 && (
@@ -287,11 +287,8 @@ export const AppDetailModal: React.FC<AppDetailModalProps> = ({
           {/* Metrics Ribbon (Apple style) */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 text-center">
             <div className="flex flex-col items-center">
-              <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Note</span>
-              <div className="flex items-center gap-1 text-sm font-bold text-gray-900 dark:text-white mt-1">
-                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                <span>{app.rating || '5.0'}</span>
-              </div>
+              <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Licence</span>
+              <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400 mt-1">MIT Libre</span>
             </div>
             <div className="flex flex-col items-center border-l border-black/10 dark:border-white/10">
               <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Version</span>

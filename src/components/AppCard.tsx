@@ -1,5 +1,4 @@
-import React from 'react';
-import { Download, Star, Smartphone, Monitor, Puzzle, Sparkles, HelpCircle } from 'lucide-react';
+import { Download, Smartphone, Monitor, Puzzle, Sparkles, HelpCircle } from 'lucide-react';
 import { AppItem, PlatformType } from '../types/app';
 import { triggerDirectDownload } from '../utils/download';
 import { PendingDownload } from './DownloadLicenseModal';
@@ -73,26 +72,17 @@ export const AppCard: React.FC<AppCardProps> = ({ app, onSelectApp, onOpenGuide,
             {app.category}
           </p>
 
-          {/* Ratings & Platforms */}
-          <div className="flex items-center gap-2 mt-2 flex-wrap">
-            {app.rating && (
-              <div className="flex items-center gap-1 text-xs font-semibold text-gray-700 dark:text-gray-300">
-                <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                <span>{app.rating}</span>
-              </div>
-            )}
-            <span className="text-gray-300 dark:text-gray-700">•</span>
-            <div className="flex items-center gap-1.5">
-              {app.platforms.map(p => (
-                <span
-                  key={p}
-                  className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded bg-black/5 dark:bg-white/10 text-gray-600 dark:text-gray-300"
-                >
-                  {renderPlatformIcon(p)}
-                  {getPlatformLabel(p)}
-                </span>
-              ))}
-            </div>
+          {/* Platforms */}
+          <div className="flex items-center gap-1.5 mt-2 flex-wrap">
+            {app.platforms.map(p => (
+              <span
+                key={p}
+                className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded bg-black/5 dark:bg-white/10 text-gray-600 dark:text-gray-300"
+              >
+                {renderPlatformIcon(p)}
+                {getPlatformLabel(p)}
+              </span>
+            ))}
           </div>
         </div>
       </div>

@@ -87,7 +87,6 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
               className="bg-transparent text-xs font-medium focus:outline-none cursor-pointer pr-1"
             >
               <option value="recommended" className="dark:bg-[#1c1c1e] text-gray-900 dark:text-white">Recommandés</option>
-              <option value="rating" className="dark:bg-[#1c1c1e] text-gray-900 dark:text-white">Mieux notés</option>
               <option value="newest" className="dark:bg-[#1c1c1e] text-gray-900 dark:text-white">Plus récents</option>
               <option value="name" className="dark:bg-[#1c1c1e] text-gray-900 dark:text-white">Nom (A - Z)</option>
               <option value="size" className="dark:bg-[#1c1c1e] text-gray-900 dark:text-white">Taille (croissante)</option>

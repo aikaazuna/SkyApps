@@ -1,5 +1,5 @@
 import React from 'react';
-import { Download, Star, Smartphone, Monitor, Puzzle, Sparkles } from 'lucide-react';
+import { Download, Smartphone, Monitor, Puzzle, Sparkles } from 'lucide-react';
 import { AppItem, PlatformType } from '../types/app';
 import { triggerDirectDownload } from '../utils/download';
 import { PendingDownload } from './DownloadLicenseModal';
@@ -70,15 +70,6 @@ export const AppListRow: React.FC<AppListRowProps> = ({ app, rank, onSelectApp, 
                 </React.Fragment>
               ))}
             </div>
-            {app.rating && (
-              <>
-                <span>•</span>
-                <span className="flex items-center gap-0.5 text-xs font-semibold text-gray-700 dark:text-gray-300">
-                  <Star className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
-                  {app.rating}
-                </span>
-              </>
-            )}
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@ import initialApps from '../data/apps.json';
 import storeConfig from '../data/config.json';
 import { AppItem, PlatformType, AppCategory, StoreConfig } from '../types/app';
 
-export type SortOption = 'recommended' | 'rating' | 'name' | 'newest' | 'size';
+export type SortOption = 'recommended' | 'name' | 'newest' | 'size';
 
 export function useApps() {
   const [apps] = useState<AppItem[]>(initialApps as unknown as AppItem[]);
@@ -23,7 +23,7 @@ export function useApps() {
 
   // Top / Trending Apps (for the compact iOS top chart list)
   const trendingApps = useMemo(() => {
-    return [...apps].sort((a, b) => (b.rating || 0) - (a.rating || 0)).slice(0, 4);
+    return apps.slice(0, 4);
   }, [apps]);
 
   // Filtered and Sorted catalog
@@ -53,8 +53,6 @@ export function useApps() {
       })
       .sort((a, b) => {
         switch (sortBy) {
-          case 'rating':
-            return (b.rating || 0) - (a.rating || 0);
           case 'name':
             return a.name.localeCompare(b.name);
           case 'newest':
@@ -65,7 +63,7 @@ export function useApps() {
           default:
             if (a.featured && !b.featured) return -1;
             if (!a.featured && b.featured) return 1;
-            return (b.rating || 0) - (a.rating || 0);
+            return 0;
         }
       });
   }, [apps, selectedPlatform, selectedCategory, searchQuery, sortBy]);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Download, Star, ExternalLink, Sparkles, Smartphone, Monitor, Puzzle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Download, ExternalLink, Sparkles, Smartphone, Monitor, Puzzle } from 'lucide-react';
 import { AppItem, PlatformType } from '../types/app';
 import { triggerDirectDownload } from '../utils/download';
 import { PendingDownload } from './DownloadLicenseModal';
@@ -107,14 +107,8 @@ export const HeroSpotlight: React.FC<HeroSpotlightProps> = ({
               className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl shadow-xl object-cover border-2 border-white/20"
             />
             <div>
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight flex items-center gap-3">
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
                 {currentApp.name}
-                {currentApp.rating && (
-                  <span className="inline-flex items-center gap-1 text-sm font-semibold px-2 py-0.5 rounded-md bg-white/20 text-yellow-300">
-                    <Star className="w-3.5 h-3.5 fill-yellow-300 text-yellow-300" />
-                    {currentApp.rating}
-                  </span>
-                )}
               </h2>
               <p className="text-gray-300 text-xs sm:text-sm font-medium line-clamp-1 mt-0.5">
                 {currentApp.category} • Par {currentApp.author.name} • v{currentApp.version} ({currentApp.size})

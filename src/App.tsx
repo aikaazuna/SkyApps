@@ -149,7 +149,7 @@ export function App() {
                     </h2>
                   </div>
                   <span className="text-xs text-gray-500 dark:text-gray-400">
-                    Les mieux notées par les utilisateurs
+                    Sélection des applications indispensables
                   </span>
                 </div>
 
@@ -275,7 +275,6 @@ export function App() {
       {/* Subtle Apple Footer */}
       <Footer
         config={config}
-        onOpenSubmitModal={() => setIsSubmitModalOpen(true)}
       />
     </div>
   );
