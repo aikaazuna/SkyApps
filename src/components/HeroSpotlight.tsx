@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Download, ExternalLink, Sparkles, Smartphone
 import { AppItem, PlatformType } from '../types/app';
 import { triggerDirectDownload } from '../utils/download';
 import { PendingDownload } from './DownloadLicenseModal';
+import { DynamicAppBanner } from './DynamicAppBanner';
 
 interface HeroSpotlightProps {
   featuredApps: AppItem[];
@@ -18,24 +19,28 @@ export const HeroSpotlight: React.FC<HeroSpotlightProps> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Auto rotation
+  // Auto slide every 6 seconds unless user hovers
   useEffect(() => {
     if (featuredApps.length <= 1 || isPaused) return;
+
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % featuredApps.length);
     }, 6000);
+
     return () => clearInterval(interval);
   }, [featuredApps.length, isPaused]);
 
-  if (featuredApps.length === 0) return null;
+  if (!featuredApps.length) return null;
 
-  const currentApp = featuredApps[currentIndex];
+  const currentApp = featuredApps[currentIndex] || featuredApps[0];
 
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? featuredApps.length - 1 : prev - 1));
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + featuredApps.length) % featuredApps.length);
   };
 
-  const handleNext = () => {
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setCurrentIndex((prev) => (prev + 1) % featuredApps.length);
   };
 
@@ -76,16 +81,9 @@ export const HeroSpotlight: React.FC<HeroSpotlightProps> = ({
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Background Banner with dynamic dark gradient overlay */}
+      {/* Background Banner (Dynamic Gradient or Image) */}
       <div className="relative h-[420px] sm:h-[460px] md:h-[480px] w-full overflow-hidden bg-gray-900">
-        <img
-          src={currentApp.banner || currentApp.icon}
-          alt={currentApp.name}
-          className="w-full h-full object-cover object-center filter brightness-60 scale-105 group-hover:scale-100 transition-transform duration-1000 ease-out"
-        />
-        {/* Apple style ambient lighting gradients */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+        <DynamicAppBanner app={currentApp} />
 
         {/* Content Container */}
         <div className="absolute inset-0 p-6 sm:p-10 flex flex-col justify-end max-w-3xl">
