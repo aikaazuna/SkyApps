@@ -12,7 +12,7 @@ import { Footer } from './components/Footer';
 import { useApps } from './hooks/useApps';
 import { getInitialTheme, applyTheme, Theme } from './utils/theme';
 import { triggerDirectDownload } from './utils/download';
-import { Flame, SearchX, RefreshCw, Layers } from 'lucide-react';
+import { Flame, SearchX, RefreshCw, Layers, Sparkles } from 'lucide-react';
 import { AppItem, PlatformType } from './types/app';
 
 export function App() {
@@ -223,26 +223,30 @@ export function App() {
             </div>
           ) : (
             /* Empty State */
-            <div className="apple-glass rounded-3xl p-12 text-center my-10 space-y-4 max-w-md mx-auto">
-              <div className="w-16 h-16 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center mx-auto text-gray-400">
-                <SearchX className="w-8 h-8" />
+            <div className="apple-glass rounded-3xl p-10 sm:p-12 text-center my-10 space-y-4 max-w-md mx-auto">
+              <div className="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center mx-auto text-gray-400">
+                {apps.length === 0 ? <Sparkles className="w-8 h-8 text-[#0071e3]" /> : <SearchX className="w-8 h-8" />}
               </div>
               <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-                Aucune application trouvée
+                {apps.length === 0 ? 'Bienvenue sur Sky Apps Store' : 'Aucune application trouvée'}
               </h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                Aucune application ne correspond à votre recherche "{searchQuery}". Essayez un autre mot-clé ou réinitialisez les filtres.
+              <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+                {apps.length === 0
+                  ? "Votre catalogue est prêt à accueillir vos applications ! Utilisez le générateur (Ctrl + Maj + A) pour créer votre première fiche."
+                  : `Aucune application ne correspond à votre recherche "${searchQuery}". Essayez un autre mot-clé ou réinitialisez les filtres.`}
               </p>
-              <button
-                onClick={() => {
-                  setSearchQuery('');
-                  setSelectedPlatform('all');
-                  setSelectedCategory('all');
-                }}
-                className="px-5 py-2.5 rounded-full text-xs font-semibold text-white bg-[#0071e3] hover:bg-[#0077ed] transition-colors"
-              >
-                Effacer la recherche
-              </button>
+              {apps.length > 0 && (
+                <button
+                  onClick={() => {
+                    setSearchQuery('');
+                    setSelectedPlatform('all');
+                    setSelectedCategory('all');
+                  }}
+                  className="px-5 py-2.5 rounded-full text-xs font-semibold text-white bg-[#0071e3] hover:bg-[#0077ed] transition-colors cursor-pointer"
+                >
+                  Effacer la recherche
+                </button>
+              )}
             </div>
           )}
         </section>
