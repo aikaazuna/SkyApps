@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Download, Star, ExternalLink, Sparkles, Smartphone, Monitor, Puzzle } from 'lucide-react';
 import { AppItem, PlatformType } from '../types/app';
 import { triggerDirectDownload } from '../utils/download';
+import { PendingDownload } from './DownloadLicenseModal';
 
 interface HeroSpotlightProps {
   featuredApps: AppItem[];
   onSelectApp: (app: AppItem) => void;
+  onRequestDownload?: (info: PendingDownload) => void;
 }
 
 export const HeroSpotlight: React.FC<HeroSpotlightProps> = ({
   featuredApps,
-  onSelectApp
+  onSelectApp,
+  onRequestDownload
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -131,7 +134,17 @@ export const HeroSpotlight: React.FC<HeroSpotlightProps> = ({
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  triggerDirectDownload(primaryDownload.url, `${currentApp.name}-${primaryDownload.version || currentApp.version}.${primaryDownload.platform === 'apk' ? 'apk' : 'exe'}`);
+                  const filename = `${currentApp.name}-${primaryDownload.version || currentApp.version}.${primaryDownload.platform === 'apk' ? 'apk' : 'exe'}`;
+                  if (onRequestDownload) {
+                    onRequestDownload({
+                      url: primaryDownload.url,
+                      filename,
+                      appName: currentApp.name,
+                      appIcon: currentApp.icon
+                    });
+                  } else {
+                    triggerDirectDownload(primaryDownload.url, filename);
+                  }
                 }}
                 className="flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm text-white bg-[#0071e3] hover:bg-[#0077ed] shadow-lg hover:shadow-apple-glow transform hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 cursor-pointer"
               >

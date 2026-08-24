@@ -2,14 +2,16 @@ import React from 'react';
 import { Download, Star, Smartphone, Monitor, Puzzle, Sparkles, HelpCircle } from 'lucide-react';
 import { AppItem, PlatformType } from '../types/app';
 import { triggerDirectDownload } from '../utils/download';
+import { PendingDownload } from './DownloadLicenseModal';
 
 interface AppCardProps {
   app: AppItem;
   onSelectApp: (app: AppItem) => void;
   onOpenGuide?: (app: AppItem, platform: PlatformType) => void;
+  onRequestDownload?: (info: PendingDownload) => void;
 }
 
-export const AppCard: React.FC<AppCardProps> = ({ app, onSelectApp, onOpenGuide }) => {
+export const AppCard: React.FC<AppCardProps> = ({ app, onSelectApp, onOpenGuide, onRequestDownload }) => {
   const primaryDownload = app.downloads.find(d => d.primary) || app.downloads[0];
 
   const renderPlatformIcon = (platform: PlatformType) => {
@@ -127,7 +129,17 @@ export const AppCard: React.FC<AppCardProps> = ({ app, onSelectApp, onOpenGuide 
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
-                triggerDirectDownload(primaryDownload.url, `${app.name}-${primaryDownload.version || app.version}.${primaryDownload.platform === 'apk' ? 'apk' : 'exe'}`);
+                const filename = `${app.name}-${primaryDownload.version || app.version}.${primaryDownload.platform === 'apk' ? 'apk' : 'exe'}`;
+                if (onRequestDownload) {
+                  onRequestDownload({
+                    url: primaryDownload.url,
+                    filename,
+                    appName: app.name,
+                    appIcon: app.icon
+                  });
+                } else {
+                  triggerDirectDownload(primaryDownload.url, filename);
+                }
               }}
               className="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-[#0071e3] bg-[#0071e3]/10 hover:bg-[#0071e3] hover:text-white dark:bg-white/10 dark:text-white dark:hover:bg-[#0071e3] transition-all duration-200 transform hover:scale-105 active:scale-95 flex items-center gap-1.5 cursor-pointer"
             >

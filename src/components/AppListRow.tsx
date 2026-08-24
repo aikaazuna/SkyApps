@@ -2,14 +2,16 @@ import React from 'react';
 import { Download, Star, Smartphone, Monitor, Puzzle, Sparkles } from 'lucide-react';
 import { AppItem, PlatformType } from '../types/app';
 import { triggerDirectDownload } from '../utils/download';
+import { PendingDownload } from './DownloadLicenseModal';
 
 interface AppListRowProps {
   app: AppItem;
   rank: number;
   onSelectApp: (app: AppItem) => void;
+  onRequestDownload?: (info: PendingDownload) => void;
 }
 
-export const AppListRow: React.FC<AppListRowProps> = ({ app, rank, onSelectApp }) => {
+export const AppListRow: React.FC<AppListRowProps> = ({ app, rank, onSelectApp, onRequestDownload }) => {
   const primaryDownload = app.downloads.find(d => d.primary) || app.downloads[0];
 
   const renderPlatformBadge = (platform: PlatformType) => {
@@ -88,7 +90,17 @@ export const AppListRow: React.FC<AppListRowProps> = ({ app, rank, onSelectApp }
             type="button"
             onClick={(e) => {
               e.stopPropagation();
-              triggerDirectDownload(primaryDownload.url, `${app.name}-${primaryDownload.version || app.version}.${primaryDownload.platform === 'apk' ? 'apk' : 'exe'}`);
+              const filename = `${app.name}-${primaryDownload.version || app.version}.${primaryDownload.platform === 'apk' ? 'apk' : 'exe'}`;
+              if (onRequestDownload) {
+                onRequestDownload({
+                  url: primaryDownload.url,
+                  filename,
+                  appName: app.name,
+                  appIcon: app.icon
+                });
+              } else {
+                triggerDirectDownload(primaryDownload.url, filename);
+              }
             }}
             className="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-[#0071e3] bg-black/5 hover:bg-[#0071e3] hover:text-white dark:bg-white/10 dark:text-white dark:hover:bg-[#0071e3] transition-all duration-200 flex items-center gap-1 cursor-pointer"
           >

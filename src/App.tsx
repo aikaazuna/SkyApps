@@ -7,9 +7,11 @@ import { AppListRow } from './components/AppListRow';
 import { AppDetailModal } from './components/AppDetailModal';
 import { InstallGuideModal } from './components/InstallGuideModal';
 import { AppSubmitModal } from './components/AppSubmitModal';
+import { DownloadLicenseModal, PendingDownload } from './components/DownloadLicenseModal';
 import { Footer } from './components/Footer';
 import { useApps } from './hooks/useApps';
 import { getInitialTheme, applyTheme, Theme } from './utils/theme';
+import { triggerDirectDownload } from './utils/download';
 import { Flame, SearchX, RefreshCw, Layers } from 'lucide-react';
 import { AppItem, PlatformType } from './types/app';
 
@@ -38,6 +40,8 @@ export function App() {
     setInstallGuideApp
   } = useApps();
 
+  const [pendingDownload, setPendingDownload] = useState<PendingDownload | null>(null);
+
   // Apply theme on change
   useEffect(() => {
     applyTheme(theme);
@@ -45,6 +49,15 @@ export function App() {
 
   const toggleTheme = () => {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  const handleRequestDownload = (info: PendingDownload) => {
+    const skipWarning = localStorage.getItem('sky_apps_skip_license_warning') === 'true';
+    if (skipWarning) {
+      triggerDirectDownload(info.url, info.filename);
+    } else {
+      setPendingDownload(info);
+    }
   };
 
   // URL deep link support (e.g. ?app=sky-clip-pro or ?admin=1)
@@ -119,6 +132,7 @@ export function App() {
               <HeroSpotlight
                 featuredApps={featuredApps}
                 onSelectApp={(app) => setSelectedApp(app)}
+                onRequestDownload={handleRequestDownload}
               />
             </section>
 
@@ -146,6 +160,7 @@ export function App() {
                       app={app}
                       rank={idx + 1}
                       onSelectApp={(a) => setSelectedApp(a)}
+                      onRequestDownload={handleRequestDownload}
                     />
                   ))}
                 </div>
@@ -202,6 +217,7 @@ export function App() {
                   app={app}
                   onSelectApp={(a) => setSelectedApp(a)}
                   onOpenGuide={handleOpenGuide}
+                  onRequestDownload={handleRequestDownload}
                 />
               ))}
             </div>
@@ -237,6 +253,7 @@ export function App() {
         app={selectedApp}
         onClose={() => setSelectedApp(null)}
         onOpenGuide={handleOpenGuide}
+        onRequestDownload={handleRequestDownload}
       />
 
       <InstallGuideModal
@@ -248,6 +265,11 @@ export function App() {
       <AppSubmitModal
         isOpen={isSubmitModalOpen}
         onClose={() => setIsSubmitModalOpen(false)}
+      />
+
+      <DownloadLicenseModal
+        pendingDownload={pendingDownload}
+        onClose={() => setPendingDownload(null)}
       />
 
       {/* Subtle Apple Footer */}

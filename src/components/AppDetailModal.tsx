@@ -8,17 +8,20 @@ import {
 import { GithubIcon } from './icons/GithubIcon';
 import { AppItem, PlatformType } from '../types/app';
 import { triggerDirectDownload } from '../utils/download';
+import { PendingDownload } from './DownloadLicenseModal';
 
 interface AppDetailModalProps {
   app: AppItem | null;
   onClose: () => void;
   onOpenGuide: (app: AppItem, platform: PlatformType) => void;
+  onRequestDownload?: (info: PendingDownload) => void;
 }
 
 export const AppDetailModal: React.FC<AppDetailModalProps> = ({
   app,
   onClose,
-  onOpenGuide
+  onOpenGuide,
+  onRequestDownload
 }) => {
   const [selectedScreenshot, setSelectedScreenshot] = useState<number>(0);
   const [copiedSha, setCopiedSha] = useState<string | null>(null);
@@ -166,7 +169,19 @@ export const AppDetailModal: React.FC<AppDetailModalProps> = ({
               {primaryDownload && (
                 <button
                   type="button"
-                  onClick={() => triggerDirectDownload(primaryDownload.url, `${app.name}-${primaryDownload.version || app.version}.${primaryDownload.platform === 'apk' ? 'apk' : 'exe'}`)}
+                  onClick={() => {
+                    const filename = `${app.name}-${primaryDownload.version || app.version}.${primaryDownload.platform === 'apk' ? 'apk' : 'exe'}`;
+                    if (onRequestDownload) {
+                      onRequestDownload({
+                        url: primaryDownload.url,
+                        filename,
+                        appName: app.name,
+                        appIcon: app.icon
+                      });
+                    } else {
+                      triggerDirectDownload(primaryDownload.url, filename);
+                    }
+                  }}
                   className="flex items-center gap-2 px-6 py-2.5 rounded-l-full font-bold text-sm text-white bg-[#0071e3] hover:bg-[#0077ed] transition-all cursor-pointer"
                 >
                   <Download className="w-4 h-4 stroke-[2.5]" />
@@ -197,7 +212,17 @@ export const AppDetailModal: React.FC<AppDetailModalProps> = ({
                       type="button"
                       onClick={() => {
                         setShowDownloadsDropdown(false);
-                        triggerDirectDownload(d.url, `${app.name}-${d.version || app.version}.${d.platform === 'apk' ? 'apk' : 'exe'}`);
+                        const filename = `${app.name}-${d.version || app.version}.${d.platform === 'apk' ? 'apk' : 'exe'}`;
+                        if (onRequestDownload) {
+                          onRequestDownload({
+                            url: d.url,
+                            filename,
+                            appName: app.name,
+                            appIcon: app.icon
+                          });
+                        } else {
+                          triggerDirectDownload(d.url, filename);
+                        }
                       }}
                       className="w-full text-left flex items-center justify-between p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-xs cursor-pointer"
                     >
