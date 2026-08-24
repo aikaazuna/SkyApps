@@ -41,12 +41,12 @@ export const AppCard: React.FC<AppCardProps> = ({ app, onSelectApp, onOpenGuide 
   return (
     <div
       onClick={() => onSelectApp(app)}
-      className="apple-glass-card rounded-3xl p-5 flex flex-col justify-between cursor-pointer group select-none relative overflow-hidden transition-all duration-300"
+      className="apple-glass-card shimmer-effect rounded-3xl p-5 flex flex-col justify-between cursor-pointer group select-none relative overflow-hidden transition-all duration-300 hover:shadow-apple-card-hover"
     >
       {/* Top Badge (if any) */}
       {app.badge && (
-        <div className="absolute top-3.5 right-3.5">
-          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#0071e3]/10 text-[#0071e3] dark:bg-[#0071e3]/20 dark:text-[#2997ff] border border-[#0071e3]/20">
+        <div className="absolute top-3.5 right-3.5 z-10">
+          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#0071e3]/10 text-[#0071e3] dark:bg-[#0071e3]/20 dark:text-[#2997ff] border border-[#0071e3]/20 shadow-sm transition-transform group-hover:scale-105">
             {app.badge}
           </span>
         </div>

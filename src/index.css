@@ -6,17 +6,17 @@
   :root {
     --bg-main: #f5f5f7;
     --text-main: #1d1d1f;
-    --card-bg: rgba(255, 255, 255, 0.78);
-    --card-border: rgba(0, 0, 0, 0.08);
-    --header-bg: rgba(245, 245, 247, 0.82);
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --card-border: rgba(0, 0, 0, 0.07);
+    --header-bg: rgba(245, 245, 247, 0.85);
   }
 
   .dark {
     --bg-main: #0a0a0c;
     --text-main: #f5f5f7;
-    --card-bg: rgba(24, 24, 28, 0.72);
+    --card-bg: rgba(22, 22, 26, 0.75);
     --card-border: rgba(255, 255, 255, 0.12);
-    --header-bg: rgba(10, 10, 12, 0.82);
+    --header-bg: rgba(10, 10, 12, 0.85);
   }
 
   body {
@@ -49,6 +49,25 @@
   background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
 }
 
+/* Floating ambient glowing orbs */
+@keyframes auroraFloat1 {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  50% { transform: translate(30px, -20px) scale(1.08); }
+}
+
+@keyframes auroraFloat2 {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  50% { transform: translate(-25px, 25px) scale(1.05); }
+}
+
+.animate-aurora-1 {
+  animation: auroraFloat1 18s ease-in-out infinite;
+}
+
+.animate-aurora-2 {
+  animation: auroraFloat2 22s ease-in-out infinite;
+}
+
 /* Glassmorphism effects */
 .apple-glass {
   background: var(--card-bg);
@@ -68,18 +87,18 @@
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid var(--card-border);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .apple-glass-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.25);
-  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 113, 227, 0.25);
+  border-color: rgba(0, 113, 227, 0.3);
 }
 
 .dark .apple-glass-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.7), 0 0 20px -5px rgba(0, 113, 227, 0.3);
 }
 
 /* Apple button styling */
@@ -113,6 +132,29 @@
 
 .apple-btn-secondary:active {
   transform: scale(0.98);
+}
+
+/* Shimmer highlight animation */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.shimmer-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-effect::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transform: translateX(-100%);
+}
+
+.shimmer-effect:hover::after {
+  animation: shimmer 1.2s ease-in-out;
 }
 
 /* Custom smooth scrollbar */

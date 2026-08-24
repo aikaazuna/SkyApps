@@ -86,16 +86,16 @@ export function App() {
         <div className="absolute inset-0 apple-bg-grid opacity-60" />
         
         {/* Top-center luminous blue/purple spotlight */}
-        <div className="absolute -top-[180px] left-1/2 -translate-x-1/2 w-[700px] h-[550px] bg-gradient-to-b from-[#0071e3]/20 via-[#5856d6]/15 to-transparent rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute -top-[180px] left-1/2 -translate-x-1/2 w-[750px] h-[600px] bg-gradient-to-b from-[#0071e3]/20 via-[#5856d6]/15 to-transparent rounded-full blur-[130px] pointer-events-none animate-aurora-1" />
         
         {/* Left ambient glow orb */}
-        <div className="absolute top-[25%] -left-[200px] w-[500px] h-[500px] bg-gradient-to-tr from-[#00c0ff]/10 via-[#0071e3]/10 to-transparent rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute top-[25%] -left-[200px] w-[550px] h-[550px] bg-gradient-to-tr from-[#00c0ff]/12 via-[#0071e3]/10 to-transparent rounded-full blur-[140px] pointer-events-none animate-aurora-2" />
         
         {/* Right ambient glow orb */}
-        <div className="absolute top-[45%] -right-[200px] w-[550px] h-[550px] bg-gradient-to-bl from-[#af52de]/15 via-[#5856d6]/10 to-transparent rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute top-[45%] -right-[200px] w-[600px] h-[600px] bg-gradient-to-bl from-[#af52de]/15 via-[#5856d6]/12 to-transparent rounded-full blur-[140px] pointer-events-none animate-aurora-1" />
         
         {/* Bottom ambient glow orb */}
-        <div className="absolute bottom-[10%] left-1/3 w-[600px] h-[400px] bg-gradient-to-t from-[#0071e3]/10 to-transparent rounded-full blur-[130px] pointer-events-none" />
+        <div className="absolute bottom-[10%] left-1/3 w-[650px] h-[450px] bg-gradient-to-t from-[#0071e3]/12 to-transparent rounded-full blur-[130px] pointer-events-none animate-aurora-2" />
       </div>
 
       {/* Apple blurred Glass Navbar */}

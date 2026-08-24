@@ -54,10 +54,10 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
               <button
                 key={p.id}
                 onClick={() => setSelectedPlatform(p.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 select-none ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-300 select-none cursor-pointer ${
                   isActive
-                    ? 'bg-[#0071e3] text-white shadow-sm ring-2 ring-[#0071e3]/30 scale-[1.02]'
-                    : 'bg-black/5 dark:bg-white/5 text-gray-700 dark:text-gray-300 hover:bg-black/10 dark:hover:bg-white/10'
+                    ? 'bg-[#0071e3] text-white shadow-md ring-2 ring-[#0071e3]/30 scale-[1.03]'
+                    : 'bg-black/5 dark:bg-white/5 text-gray-700 dark:text-gray-300 hover:bg-black/10 dark:hover:bg-white/10 hover:scale-[1.02] active:scale-[0.98]'
                 }`}
               >
                 {p.icon}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   X, Copy, Check, Sparkles, Download, Plus, Trash2, 
-  HelpCircle, Code2, ChevronRight 
+  HelpCircle, Code2, ChevronRight, Folder, Globe, Smartphone, Monitor
 } from 'lucide-react';
 import { GithubIcon } from './icons/GithubIcon';
 import { AppItem, PlatformType, AppCategory, DownloadOption } from '../types/app';
@@ -29,8 +29,8 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
   const [rating] = useState('4.9');
   const [authorName] = useState('Sky Apps');
   const [authorUrl] = useState('https://github.com');
-  const [iconUrl, setIconUrl] = useState('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=256&h=256&fit=crop&q=80');
-  const [bannerUrl, setBannerUrl] = useState('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&h=600&fit=crop&q=80');
+  const [iconUrl, setIconUrl] = useState('/apps/mon-app/icon.png');
+  const [bannerUrl, setBannerUrl] = useState('/apps/mon-app/banner.jpg');
   const [githubRepo, setGithubRepo] = useState('');
   const [website] = useState('');
   const [featured, setFeatured] = useState(false);
@@ -49,7 +49,7 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
       id: 'download-1',
       label: 'Télécharger APK (Android)',
       platform: 'apk',
-      url: 'https://github.com/votre-compte/votre-repo/releases/download/v1.0.0/App.apk',
+      url: '/downloads/mon-app.apk',
       size: '15.0 Mo',
       version: '1.0.0',
       primary: true
@@ -67,6 +67,12 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
       .replace(/[\s_-]+/g, '-')
       .replace(/^-+|-+$/g, '');
     setId(slug);
+    if (!iconUrl || iconUrl.startsWith('/apps/')) {
+      setIconUrl(`/apps/${slug || 'mon-app'}/icon.png`);
+    }
+    if (!bannerUrl || bannerUrl.startsWith('/apps/')) {
+      setBannerUrl(`/apps/${slug || 'mon-app'}/banner.jpg`);
+    }
   };
 
   const togglePlatform = (p: PlatformType) => {
@@ -95,7 +101,7 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
       id: `download-${downloads.length + 1}`,
       label: 'Installateur Windows (.exe)',
       platform: 'exe',
-      url: 'https://github.com/votre-compte/votre-repo/releases/download/v1.0.0/App-Setup.exe',
+      url: `/downloads/${id || 'mon-app'}-setup.exe`,
       size: '20.0 Mo',
       version: version || '1.0.0',
       primary: false
@@ -180,7 +186,7 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in">
       <div 
-        className="fixed inset-0 bg-black/70 backdrop-blur-md transition-opacity" 
+        className="fixed inset-0 bg-black/75 backdrop-blur-md transition-opacity" 
         onClick={onClose}
       />
 
@@ -191,7 +197,7 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
         {/* Header */}
         <div className="p-6 pb-4 border-b border-black/5 dark:border-white/10 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-2xl bg-gradient-to-tr from-[#0071e3] to-[#5856d6] text-white">
+            <div className="p-2.5 rounded-2xl bg-gradient-to-tr from-[#0071e3] to-[#5856d6] text-white shadow-md">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
@@ -199,7 +205,7 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
                 Générateur d'Application pour GitHub
               </h2>
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                Créez le bloc JSON à coller dans <code>src/data/apps.json</code> pour ajouter votre appli
+                Configurez votre application et générez le bloc pour <code>src/data/apps.json</code>
               </p>
             </div>
           </div>
@@ -244,7 +250,7 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
             }`}
           >
             <HelpCircle className="w-3.5 h-3.5" />
-            <span>3. Tuto GitHub &amp; Vercel (30s)</span>
+            <span>3. Tuto Hébergement &amp; GitHub (30s)</span>
           </button>
         </div>
 
@@ -269,7 +275,7 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
 
                 <div>
                   <label className="block font-semibold text-gray-700 dark:text-gray-300 mb-1">
-                    Identifiant unique (slug URL)
+                    Identifiant unique (slug dossier / url)
                   </label>
                   <input
                     type="text"
@@ -302,7 +308,7 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
                   rows={3}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Présentation des atouts, technologies utilisées, utilité pour l'utilisateur..."
+                  placeholder="Présentation des fonctionnalités, avantages, utilité pour vos utilisateurs..."
                   className="w-full px-3.5 py-2 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0071e3]"
                 />
               </div>
@@ -360,7 +366,7 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
                     value={version}
                     onChange={(e) => setVersion(e.target.value)}
                     placeholder="1.0.0"
-                    className="w-full px-3 py-1.5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10"
+                    className="w-full px-3 py-1.5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 font-mono"
                   />
                 </div>
                 <div>
@@ -379,7 +385,7 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
                     type="text"
                     value={badge}
                     onChange={(e) => setBadge(e.target.value)}
-                    placeholder="Ex: Nouveau"
+                    placeholder="Ex: Nouveau, v2.0"
                     className="w-full px-3 py-1.5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10"
                   />
                 </div>
@@ -389,9 +395,9 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
                       type="checkbox"
                       checked={featured}
                       onChange={(e) => setFeatured(e.target.checked)}
-                      className="rounded text-[#0071e3] focus:ring-[#0071e3] w-4 h-4"
+                      className="rounded text-[#0071e3] focus:ring-[#0071e3] w-4 h-4 cursor-pointer"
                     />
-                    <span className="font-semibold text-gray-700 dark:text-gray-300">À la une</span>
+                    <span className="font-semibold text-gray-700 dark:text-gray-300">À la une (Hero)</span>
                   </label>
                 </div>
               </div>
@@ -399,35 +405,74 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
               {/* Icons & Media */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-semibold text-gray-700 dark:text-gray-300 mb-1">
-                    URL de l'icône (256x256)
-                  </label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="font-semibold text-gray-700 dark:text-gray-300">
+                      Chemin / URL de l'icône
+                    </label>
+                    <span className="text-[10px] text-gray-400">📁 Dossier public/apps/</span>
+                  </div>
                   <input
                     type="text"
                     value={iconUrl}
                     onChange={(e) => setIconUrl(e.target.value)}
-                    placeholder="https://... ou /icons/app.png"
+                    placeholder="/apps/mon-app/icon.png ou https://..."
                     className="w-full px-3.5 py-2 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 font-mono text-[11px]"
                   />
+                  <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                    <button
+                      type="button"
+                      onClick={() => setIconUrl(`/apps/${id || 'mon-app'}/icon.png`)}
+                      className="text-[10px] px-2 py-0.5 rounded bg-black/5 dark:bg-white/10 hover:bg-black/10 text-gray-600 dark:text-gray-300 flex items-center gap-1 font-mono"
+                    >
+                      <Folder className="w-2.5 h-2.5" /> /apps/{id || 'mon-app'}/icon.png
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setIconUrl('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=256&h=256&fit=crop&q=80')}
+                      className="text-[10px] px-2 py-0.5 rounded bg-black/5 dark:bg-white/10 hover:bg-black/10 text-gray-600 dark:text-gray-300 flex items-center gap-1"
+                    >
+                      <Globe className="w-2.5 h-2.5" /> Image Unsplash
+                    </button>
+                  </div>
                 </div>
+
                 <div>
-                  <label className="block font-semibold text-gray-700 dark:text-gray-300 mb-1">
-                    URL Bannière / Capture
-                  </label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="font-semibold text-gray-700 dark:text-gray-300">
+                      Chemin / URL Bannière &amp; Capture
+                    </label>
+                    <span className="text-[10px] text-gray-400">📁 Dossier public/apps/</span>
+                  </div>
                   <input
                     type="text"
                     value={bannerUrl}
                     onChange={(e) => setBannerUrl(e.target.value)}
-                    placeholder="https://... ou /banners/app.jpg"
+                    placeholder="/apps/mon-app/banner.jpg ou https://..."
                     className="w-full px-3.5 py-2 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 font-mono text-[11px]"
                   />
+                  <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                    <button
+                      type="button"
+                      onClick={() => setBannerUrl(`/apps/${id || 'mon-app'}/banner.jpg`)}
+                      className="text-[10px] px-2 py-0.5 rounded bg-black/5 dark:bg-white/10 hover:bg-black/10 text-gray-600 dark:text-gray-300 flex items-center gap-1 font-mono"
+                    >
+                      <Folder className="w-2.5 h-2.5" /> /apps/{id || 'mon-app'}/banner.jpg
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setBannerUrl('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&h=600&fit=crop&q=80')}
+                      className="text-[10px] px-2 py-0.5 rounded bg-black/5 dark:bg-white/10 hover:bg-black/10 text-gray-600 dark:text-gray-300 flex items-center gap-1"
+                    >
+                      <Globe className="w-2.5 h-2.5" /> Bannière Unsplash
+                    </button>
+                  </div>
                 </div>
               </div>
 
               {/* Key Features */}
               <div className="space-y-2">
                 <label className="block font-semibold text-gray-700 dark:text-gray-300">
-                  Points forts / Fonctionnalités
+                  Points forts / Fonctionnalités clés
                 </label>
                 <div className="space-y-2">
                   {features.map((feat, idx) => (
@@ -475,16 +520,21 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
               {/* Downloads list */}
               <div className="space-y-3 pt-2">
                 <div className="flex items-center justify-between">
-                  <label className="block font-semibold text-gray-700 dark:text-gray-300">
-                    Fichiers téléchargeables (GitHub Releases, APK, EXE...)
-                  </label>
+                  <div>
+                    <label className="block font-semibold text-gray-700 dark:text-gray-300">
+                      Fichiers téléchargeables (Direct sur le site ou GitHub Releases)
+                    </label>
+                    <span className="text-[11px] text-gray-500">
+                      Utilisez <code>/downloads/fichier.apk</code> pour télécharger directement depuis votre site
+                    </span>
+                  </div>
                   <button
                     type="button"
                     onClick={addDownload}
                     className="text-xs text-[#0071e3] font-semibold hover:underline flex items-center gap-1"
                   >
                     <Plus className="w-3.5 h-3.5" />
-                    <span>Ajouter un fichier / miroir</span>
+                    <span>Ajouter un fichier</span>
                   </button>
                 </div>
 
@@ -529,13 +579,33 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
                         </div>
                       </div>
 
-                      <input
-                        type="text"
-                        value={dl.url}
-                        onChange={(e) => updateDownload(idx, 'url', e.target.value)}
-                        placeholder="Lien direct de téléchargement (ex: https://github.com/.../app.apk)"
-                        className="w-full px-2.5 py-1.5 rounded-lg bg-white dark:bg-black/30 border border-black/10 dark:border-white/10 font-mono text-[11px]"
-                      />
+                      <div className="space-y-1.5">
+                        <input
+                          type="text"
+                          value={dl.url}
+                          onChange={(e) => updateDownload(idx, 'url', e.target.value)}
+                          placeholder="/downloads/mon-app.apk ou https://github.com/.../releases/..."
+                          className="w-full px-2.5 py-1.5 rounded-lg bg-white dark:bg-black/30 border border-black/10 dark:border-white/10 font-mono text-[11px]"
+                        />
+
+                        {/* Quick path autofill buttons */}
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <button
+                            type="button"
+                            onClick={() => updateDownload(idx, 'url', `/downloads/${id || 'mon-app'}.apk`)}
+                            className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 flex items-center gap-1 font-mono"
+                          >
+                            <Smartphone className="w-2.5 h-2.5" /> /downloads/{id || 'mon-app'}.apk
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => updateDownload(idx, 'url', `/downloads/${id || 'mon-app'}-setup.exe`)}
+                            className="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 hover:bg-sky-500/20 flex items-center gap-1 font-mono"
+                          >
+                            <Monitor className="w-2.5 h-2.5" /> /downloads/{id || 'mon-app'}-setup.exe
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -544,7 +614,7 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
               {/* GitHub Repo */}
               <div>
                 <label className="block font-semibold text-gray-700 dark:text-gray-300 mb-1">
-                  Lien GitHub du projet (Optionnel)
+                  Lien GitHub du code source (Optionnel)
                 </label>
                 <input
                   type="text"
@@ -573,7 +643,7 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
                   </button>
                   <button
                     onClick={handleCopyJson}
-                    className="px-4 py-1.5 rounded-xl bg-[#0071e3] hover:bg-[#0077ed] text-white font-semibold flex items-center gap-1.5 shadow-sm"
+                    className="px-4 py-1.5 rounded-xl bg-[#0071e3] hover:bg-[#0077ed] text-white font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer"
                   >
                     {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                     <span>{copied ? 'Copié !' : 'Copier le JSON'}</span>
@@ -589,51 +659,68 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
 
           {activeView === 'tutorial' && (
             <div className="space-y-6 text-xs text-gray-700 dark:text-gray-300">
-              <div className="p-4 rounded-2xl bg-[#0071e3]/10 border border-[#0071e3]/20 text-[#0071e3] dark:text-[#2997ff] flex items-center gap-3">
-                <GithubIcon className="w-6 h-6 shrink-0" />
-                <div>
-                  <strong>Hébergement gratuit &amp; illimité :</strong> GitHub Releases vous permet d'héberger vos fichiers APK et EXE jusqu'à 2 Go par fichier sans payer aucun serveur !
+              
+              {/* Option 1: Direct in public folder */}
+              <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-900 dark:text-emerald-300 space-y-2">
+                <div className="flex items-center gap-2 font-bold text-sm">
+                  <Folder className="w-4 h-4" />
+                  <span>Méthode 1 (Recommandée) : Héberger directement dans le projet</span>
+                </div>
+                <p className="leading-relaxed">
+                  Déposez vos images dans <code className="bg-emerald-500/20 px-1.5 py-0.5 rounded">public/apps/votre-app/</code> et vos fichiers dans <code className="bg-emerald-500/20 px-1.5 py-0.5 rounded">public/downloads/</code>.
+                </p>
+                <div className="p-2.5 rounded-xl bg-black/10 font-mono text-[11px] space-y-1">
+                  <div><strong>Icône :</strong> <code>/apps/mon-app/icon.png</code></div>
+                  <div><strong>Bannière :</strong> <code>/apps/mon-app/banner.jpg</code></div>
+                  <div><strong>Téléchargement direct :</strong> <code>/downloads/mon-app.apk</code> ou <code>/downloads/mon-app-setup.exe</code></div>
+                </div>
+                <div className="text-[11px]">
+                  ✨ <strong>Résultat :</strong> Téléchargement direct immédiat depuis votre domaine Vercel sans redirection externe.
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <div className="flex items-start gap-3 p-4 rounded-2xl bg-black/5 dark:bg-white/5">
-                  <span className="w-6 h-6 rounded-full bg-[#0071e3] text-white font-bold flex items-center justify-center shrink-0">1</span>
+              {/* Option 2: GitHub Releases */}
+              <div className="p-4 rounded-2xl bg-[#0071e3]/10 border border-[#0071e3]/20 text-[#0071e3] dark:text-[#2997ff] space-y-2">
+                <div className="flex items-center gap-2 font-bold text-sm">
+                  <GithubIcon className="w-4 h-4" />
+                  <span>Méthode 2 : Fichiers volumineux via GitHub Releases (&gt; 100 Mo)</span>
+                </div>
+                <p className="leading-relaxed">
+                  Sur le dépôt GitHub de l'application, créez une Release (<code className="bg-[#0071e3]/20 px-1 rounded">Releases &gt; New release</code>), déposez votre APK/EXE et collez le lien direct dans le champ de téléchargement :
+                </p>
+                <div className="p-2.5 rounded-xl bg-black/10 font-mono text-[11px]">
+                  https://github.com/votre-compte/repo/releases/download/v1.0.0/mon-app.apk
+                </div>
+              </div>
+
+              {/* 3 Step Deployment process */}
+              <div className="space-y-3">
+                <h4 className="font-bold text-sm text-gray-900 dark:text-white">
+                  Comment déployer la mise à jour en 3 étapes :
+                </h4>
+
+                <div className="flex items-start gap-3 p-3 rounded-2xl bg-black/5 dark:bg-white/5">
+                  <span className="w-5 h-5 rounded-full bg-[#0071e3] text-white font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
                   <div>
-                    <h4 className="font-bold text-sm text-gray-900 dark:text-white mb-1">
-                      Uploadez votre .apk ou .exe sur GitHub Releases
-                    </h4>
-                    <p className="leading-relaxed">
-                      Sur le dépôt GitHub de votre projet, cliquez sur <strong>Releases &gt; Create a new release</strong>, donnez un tag (ex: <code>v1.0.0</code>) et glissez-déposez votre fichier <code>.apk</code> ou <code>.exe</code>.
-                    </p>
-                    <p className="mt-1 font-mono text-[11px] text-emerald-600 dark:text-emerald-400">
-                      Lien direct généré : https://github.com/votre-compte/repo/releases/download/v1.0.0/mon-app.apk
-                    </p>
+                    <strong>Remplissez le formulaire</strong> et cliquez sur <strong>Copier le JSON</strong> dans l'onglet 2.
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-4 rounded-2xl bg-black/5 dark:bg-white/5">
-                  <span className="w-6 h-6 rounded-full bg-[#0071e3] text-white font-bold flex items-center justify-center shrink-0">2</span>
+                <div className="flex items-start gap-3 p-3 rounded-2xl bg-black/5 dark:bg-white/5">
+                  <span className="w-5 h-5 rounded-full bg-[#0071e3] text-white font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
                   <div>
-                    <h4 className="font-bold text-sm text-gray-900 dark:text-white mb-1">
-                      Ajoutez les informations dans le fichier <code>src/data/apps.json</code>
-                    </h4>
-                    <p className="leading-relaxed">
-                      Remplissez l'onglet <strong>1. Formulaire</strong> de cette fenêtre, cliquez sur <strong>Copier le JSON</strong>, puis collez ce bloc dans la liste <code>src/data/apps.json</code> de votre projet.
-                    </p>
+                    <strong>Ouvrez <code>src/data/apps.json</code></strong> et collez votre nouveau bloc d'application.
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-4 rounded-2xl bg-black/5 dark:bg-white/5">
-                  <span className="w-6 h-6 rounded-full bg-[#0071e3] text-white font-bold flex items-center justify-center shrink-0">3</span>
+                <div className="flex items-start gap-3 p-3 rounded-2xl bg-black/5 dark:bg-white/5">
+                  <span className="w-5 h-5 rounded-full bg-[#0071e3] text-white font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
                   <div>
-                    <h4 className="font-bold text-sm text-gray-900 dark:text-white mb-1">
-                      Poussez sur GitHub (Déploiement automatique sur Vercel)
-                    </h4>
-                    <p className="leading-relaxed">
-                      Faites simplement un commit : <code>git commit -am "Ajout de Mon App" &amp;&amp; git push</code>.<br />
-                      Vercel détecte instantanément la mise à jour et met le site en ligne en 15 secondes !
-                    </p>
+                    <strong>Poussez sur GitHub :</strong>
+                    <code className="block mt-1 font-mono text-[11px] bg-black/10 dark:bg-black/30 p-2 rounded-lg text-emerald-600 dark:text-emerald-400">
+                      git add . && git commit -m "Ajout de Mon App" && git push
+                    </code>
+                    Vercel recompile et met à jour votre site automatiquement en 15 secondes ! 🚀
                   </div>
                 </div>
               </div>
@@ -655,7 +742,7 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
               <button
                 type="button"
                 onClick={() => setActiveView('json')}
-                className="flex items-center gap-1.5 px-6 py-2.5 rounded-full text-xs font-bold text-white bg-[#0071e3] hover:bg-[#0077ed] transition-all shadow-sm"
+                className="flex items-center gap-1.5 px-6 py-2.5 rounded-full text-xs font-bold text-white bg-[#0071e3] hover:bg-[#0077ed] transition-all shadow-sm cursor-pointer"
               >
                 <span>Générer le code JSON</span>
                 <ChevronRight className="w-4 h-4" />
@@ -666,14 +753,14 @@ export const AppSubmitModal: React.FC<AppSubmitModalProps> = ({ isOpen, onClose 
               <button
                 type="button"
                 onClick={() => setActiveView('form')}
-                className="px-5 py-2.5 rounded-full text-xs font-semibold text-gray-600 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                className="px-5 py-2.5 rounded-full text-xs font-semibold text-gray-600 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
               >
                 ← Retour au formulaire
               </button>
               <button
                 type="button"
                 onClick={handleCopyJson}
-                className="flex items-center gap-1.5 px-6 py-2.5 rounded-full text-xs font-bold text-white bg-[#0071e3] hover:bg-[#0077ed] transition-all shadow-sm"
+                className="flex items-center gap-1.5 px-6 py-2.5 rounded-full text-xs font-bold text-white bg-[#0071e3] hover:bg-[#0077ed] transition-all shadow-sm cursor-pointer"
               >
                 {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                 <span>{copied ? 'Copié dans le presse-papier !' : 'Copier le code JSON'}</span>
