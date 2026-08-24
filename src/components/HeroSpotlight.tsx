@@ -151,38 +151,43 @@ export const HeroSpotlight: React.FC<HeroSpotlightProps> = ({
         </div>
       </div>
 
-      {/* Slide Navigation Arrows */}
+      {/* Slide Navigation Controls & Dots (Grouped cleanly at bottom right, never overlaps text) */}
       {featuredApps.length > 1 && (
-        <>
+        <div className="absolute bottom-6 right-6 flex items-center gap-3 z-20">
+          {/* Previous Button */}
           <button
             onClick={handlePrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:scale-110"
+            className="p-2 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md transition-all duration-200 hover:scale-110 border border-white/10 active:scale-95 shadow-md"
             aria-label="Application précédente"
+            title="Précédent"
           >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button
-            onClick={handleNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:scale-110"
-            aria-label="Application suivante"
-          >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronLeft className="w-4 h-4" />
           </button>
 
           {/* Dots Indicator */}
-          <div className="absolute bottom-4 right-6 flex items-center gap-1.5 z-10">
+          <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10">
             {featuredApps.map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
-                  currentIndex === idx ? 'w-6 bg-white' : 'w-2 bg-white/40 hover:bg-white/70'
+                  currentIndex === idx ? 'w-5 bg-white' : 'w-1.5 bg-white/40 hover:bg-white/70'
                 }`}
                 aria-label={`Aller au slide ${idx + 1}`}
               />
             ))}
           </div>
-        </>
+
+          {/* Next Button */}
+          <button
+            onClick={handleNext}
+            className="p-2 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md transition-all duration-200 hover:scale-110 border border-white/10 active:scale-95 shadow-md"
+            aria-label="Application suivante"
+            title="Suivant"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
       )}
     </div>
   );
