@@ -1,65 +1,66 @@
 [
   {
-  "id": "serenity",
-  "name": "Serenity",
-  "tagline": "Tout ce dont vous avez besoin dans une seule et meme application.",
-  "description": "Serenity Hub, c'est plusieurs outils dans la même appli :\n\nun studio audio qui parle directement à Equalizer APO pour égaliser le son en temps réel (mode paramétrique ou graphique), avec accès à toute la base AutoEQ ;\nun studio couleur avec pipette système, inspecteur de formats pour devs, générateur de palettes et vérificateur d'accessibilité — hérité du projet ColorFlow, sur la base duquel Serenity Hub a été construit.\nFonctionnalités\nAudio\nÉgaliseur paramétrique — jusqu'à 24 filtres (peaking, low/high shelf, low/high pass, notch, band pass, all pass), réglables en fréquence, gain et Q.\nÉgaliseur graphique 10, 15 ou 31 bandes (normes ISO).\nCourbe de réponse en fréquence en temps réel sur canvas, filtres déplaçables directement à la souris.\nBass boost, treble air, balance stéréo, crossfeed casque, et un loudness guard qui compense automatiquement le préamp pour éviter la saturation.\nPlus de 2000 profils AutoEQ (Sennheiser, Beyerdynamic, Sony, Audio-Technica, Moondrop, etc.), ou import d'un fichier .txt AutoEQ perso.\nÉcriture directe dans le config.txt d'Equalizer APO, sélection de plusieurs sorties audio en même temps, routage par canal (gauche / droite / les deux).\nCouleur\nPipette système multi-écrans (raccourci global Ctrl+Shift+C par défaut), loupe zoomable de 2x à 16x avec grille pixel.\nConversion HEX, RGB(A), HSL, HSV, CMYK, LAB, OKLCH — plus les formats dev (CSS, variables CSS, Tailwind, Flutter, SwiftUI, Android XML, SCSS).\nGénération de palettes et harmonies (monochrome, analogue, complémentaire, triadique...), export JSON/CSS/Tailwind/PNG.\nGradient Studio pour construire des dégradés linéaires/radiaux et les exporter en CSS.\nSimulateur de daltonisme et calcul de contraste WCAG 2.1 (AA/AAA).\nExtraction de palette depuis une image, historique et favoris rangeables en dossiers.\n\nEt encore plus a venir...",
-  "icon": "/apps/serenity/serenity.png",
-  "category": "Utilitaires",
-  "platforms": [
-    "exe"
-  ],
-  "featured": true,
-  "badge": "Nouveau",
-  "rating": 4.9,
-  "author": {
-    "name": "Sky Apps",
-    "url": "https://github.com"
-  },
-  "version": "1.0.0",
-  "size": "73.9 Mo",
-  "releaseDate": "2026-08-25",
-  "lastUpdated": "2026-08-25",
-  "screenshots": [
-    "/apps/serenity/serenity.png"
-  ],
-  "features": [
-    "Fonctionnalité principale ultra-rapide",
-    "Interface utilisateur soignée et intuitive",
-    "Zéro publicité et respect de la vie privée"
-  ],
-  "requirements": {
-    "Compatibilité": "Windows 10/11"
-  },
-  "changelog": [
-    {
-      "version": "1.0.0",
-      "date": "Aujourd'hui",
-      "notes": [
-        "Version initiale disponible sur Sky Apps Store"
-      ]
-    }
-  ],
-  "downloads": [
-    {
-      "id": "download-2",
-      "label": "Installateur Windows (.exe)",
-      "platform": "exe",
-      "url": "/downloads/SerenityHub-Setup-1.0.0.exe",
-      "size": "73.9 Mo",
-      "version": "1.0.0",
-      "primary": false
+    "id": "serenity",
+    "name": "Serenity",
+    "tagline": "Tout ce dont vous avez besoin dans une seule et même application.",
+    "description": "Serenity Hub, c'est plusieurs outils dans la même appli :\n\n• Un studio audio qui parle directement à Equalizer APO pour égaliser le son en temps réel (mode paramétrique ou graphique), avec accès à toute la base AutoEQ ;\n• Un studio couleur avec pipette système, inspecteur de formats pour devs, générateur de palettes et vérificateur d'accessibilité — hérité du projet ColorFlow, sur la base duquel Serenity Hub a été construit.\n\nFonctionnalités Audio :\n- Égaliseur paramétrique — jusqu'à 24 filtres (peaking, low/high shelf, low/high pass, notch, band pass, all pass), réglables en fréquence, gain et Q.\n- Égaliseur graphique 10, 15 ou 31 bandes (normes ISO).\n- Courbe de réponse en fréquence en temps réel sur canvas, filtres déplaçables directement à la souris.\n- Bass boost, treble air, balance stéréo, crossfeed casque, et loudness guard pour compenser le préamp.\n- Plus de 2000 profils AutoEQ (Sennheiser, Beyerdynamic, Sony, Audio-Technica, Moondrop, etc.), ou import d'un fichier .txt AutoEQ perso.\n- Écriture directe dans le config.txt d'Equalizer APO, sélection de plusieurs sorties audio, routage par canal.\n\nFonctionnalités Couleur :\n- Pipette système multi-écrans (raccourci global Ctrl+Shift+C), loupe zoomable de 2x à 16x avec grille pixel.\n- Conversion HEX, RGB(A), HSL, HSV, CMYK, LAB, OKLCH — plus les formats dev (CSS, variables CSS, Tailwind, Flutter, SwiftUI, Android XML, SCSS).\n- Génération de palettes et harmonies, export JSON/CSS/Tailwind/PNG.\n- Gradient Studio pour construire des dégradés linéaires/radiaux et les exporter en CSS.\n- Simulateur de daltonisme et calcul de contraste WCAG 2.1 (AA/AAA).\n- Extraction de palette depuis une image, historique et favoris rangeables en dossiers.",
+    "icon": "/apps/serenity/serenity.png",
+    "category": "Utilitaires",
+    "platforms": [
+      "exe"
+    ],
+    "featured": true,
+    "badge": "Nouveau",
+    "author": {
+      "name": "aikaazuna (or SkyH_-)",
+      "url": "https://github.com/aikaazuna"
     },
-    {
-      "id": "download-2",
-      "label": "Exécutable Windows Portable (.exe)",
-      "platform": "exe",
-      "url": "/downloads/SerenityHub-Portable-1.0.0.exe",
-      "size": "73.7 Mo",
-      "version": "1.0.0",
-      "primary": false
-    }
-  ],
-  "githubRepo": "https://github.com/aikaazuna/Serenity"
-}
+    "version": "1.0.0",
+    "size": "73.9 Mo",
+    "releaseDate": "2026-08-25",
+    "lastUpdated": "2026-08-25",
+    "screenshots": [
+      "/apps/serenity/serenity.png"
+    ],
+    "features": [
+      "Studio Audio complet avec intégration Equalizer APO et AutoEQ",
+      "Studio Couleur & Pipette système multi-écrans (Ctrl+Shift+C)",
+      "Convertisseur de formats universel (CSS, Tailwind, Flutter, SwiftUI)",
+      "Version portable autonome disponible sans installation",
+      "100% gratuit, sans publicité et respectueux de la vie privée"
+    ],
+    "requirements": {
+      "Système": "Windows 10 / 11 (64-bit)"
+    },
+    "changelog": [
+      {
+        "version": "1.0.0",
+        "date": "25 Août 2026",
+        "notes": [
+          "Lancement officiel de Serenity v1.0.0 sur Sky Apps Store"
+        ]
+      }
+    ],
+    "downloads": [
+      {
+        "id": "serenity-setup-exe",
+        "label": "Installateur Windows (.exe)",
+        "platform": "exe",
+        "url": "/downloads/SerenityHub-Setup-1.0.0.exe",
+        "size": "73.9 Mo",
+        "version": "1.0.0",
+        "primary": true
+      },
+      {
+        "id": "serenity-portable-exe",
+        "label": "Exécutable Windows Portable (.exe)",
+        "platform": "exe",
+        "url": "/downloads/SerenityHub-Portable-1.0.0.exe",
+        "size": "73.7 Mo",
+        "version": "1.0.0",
+        "primary": false
+      }
+    ],
+    "githubRepo": "https://github.com/aikaazuna/Serenity"
+  }
 ]
