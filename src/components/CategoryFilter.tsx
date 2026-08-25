@@ -46,7 +46,7 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
     <div className="w-full space-y-4 my-6">
       {/* Top Platform Switcher Pills (iOS Style) */}
       <div className="flex items-center justify-between gap-4 flex-wrap pb-2 border-b border-black/5 dark:border-white/10">
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+        <div className="flex items-center gap-2.5 overflow-x-auto no-scrollbar py-2.5 px-1 -mx-1">
           {platformButtons.map(p => {
             const isActive = selectedPlatform === p.id;
             const count = platformCounts[p.id] ?? 0;
@@ -54,16 +54,16 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
               <button
                 key={p.id}
                 onClick={() => setSelectedPlatform(p.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-300 select-none cursor-pointer ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-300 select-none cursor-pointer transform hover:scale-[1.02] active:scale-[0.98] ${
                   isActive
-                    ? 'bg-[#0071e3] text-white shadow-md ring-2 ring-[#0071e3]/30 scale-[1.03]'
-                    : 'bg-black/5 dark:bg-white/5 text-gray-700 dark:text-gray-300 hover:bg-black/10 dark:hover:bg-white/10 hover:scale-[1.02] active:scale-[0.98]'
+                    ? 'bg-[#0071e3] text-white shadow-lg shadow-[#0071e3]/25 ring-2 ring-[#0071e3]/40'
+                    : 'bg-black/5 dark:bg-white/5 text-gray-700 dark:text-gray-300 hover:bg-black/10 dark:hover:bg-white/10'
                 }`}
               >
                 {p.icon}
                 <span>{p.label}</span>
                 {count > 0 && (
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
+                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold transition-colors ${
                     isActive ? 'bg-white/20 text-white' : 'bg-black/10 dark:bg-white/10 text-gray-500 dark:text-gray-400'
                   }`}>
                     {count}
@@ -96,7 +96,7 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
       </div>
 
       {/* Secondary Category Filter tags */}
-      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1.5 px-1 -mx-1">
         <div className="flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500 mr-1 select-none">
           <Filter className="w-3 h-3" />
           <span>Genre :</span>
@@ -107,10 +107,10 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
+              className={`px-3 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                 isActive
-                  ? 'bg-black/15 dark:bg-white/20 text-gray-900 dark:text-white font-semibold underline underline-offset-4 decoration-[#0071e3] decoration-2'
-                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                  ? 'bg-black/10 dark:bg-white/15 text-gray-900 dark:text-white font-bold underline underline-offset-4 decoration-[#0071e3] decoration-2'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
               }`}
             >
               {cat === 'all' ? 'Tous les genres' : cat}

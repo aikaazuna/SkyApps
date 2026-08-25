@@ -43,14 +43,11 @@ export default {
       },
       fontFamily: {
         sans: [
+          '"Plus Jakarta Sans"',
           '-apple-system',
           'BlinkMacSystemFont',
           '"SF Pro Display"',
-          '"SF Pro Text"',
-          '"Segoe UI"',
-          'Roboto',
-          'Helvetica',
-          'Arial',
+          'system-ui',
           'sans-serif'
         ]
       },
